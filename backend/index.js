@@ -1,13 +1,21 @@
 import dotenv from "dotenv";
 dotenv.config();
 // File: backend/index.js
-import express from "express";
+import app from "./app.js";
 import connectDB from "./db/index.js";
 
-connectDB(); // Connect to MongoDB
+connectDB()
+.then(() => {
+    app.listen(process.env.PORT||5000, () => {
+        console.log(`Server is running on port ${process.env.PORT}`);
+    });
+})
+.catch((err)=> {
+    console.error("Error connecting to MongoDB:", err);
+    process.exit(1);
+}) // Connect to MongoDB
 
-const app = express();
-const port = process.env.PORT || 4000;
+
 
 app.get("/", (req, res) => {
   res.send("Server is running!");
@@ -43,5 +51,5 @@ app.get("/api/jokes", (req, res) => {
 
 
 
-app.listen(port, () => {  console.log(`Example app listening at http://localhost:${port}`);
-});
+// app.listen(port, () => {  console.log(`Example app listening at http://localhost:${port}`);
+// });

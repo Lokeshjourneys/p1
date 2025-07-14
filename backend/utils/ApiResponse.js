@@ -12,7 +12,7 @@ class ApiResponse {
 ApiResponse.success = (data, message = 'Success') => {
     return new ApiResponse(200, message, data);
 };
-ApiResponse.created = (data, message = 'Resource created successfully') => {
+ApiResponse.created = (data, message = 'User created successfully') => {
     return new ApiResponse(201, message, data);
 };
 ApiResponse.noContent = (message = 'No content') => {

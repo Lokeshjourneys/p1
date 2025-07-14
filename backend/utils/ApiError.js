@@ -6,12 +6,7 @@ class ApiError extends Error {
         this.message = message;
         this.success = false; // Indicates that this is an error response
         this.errors = []; // Array to hold validation or other errors
-
-        if(stack) {
-            this.stack = (new Error()).stack; // Capture the stack trace
-        } else {
-            this.stack = null; // If stack is not available, set it to null
-        }
+        this.stack = (new Error()).stack; // Capture the stack trace for debugging
     }
 
     static badRequest(message) {

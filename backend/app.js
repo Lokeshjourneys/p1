@@ -33,15 +33,19 @@ import userRouter from "./Routes/user.routes.js";
 // Using routes
 app.use("/api/users", userRouter);
 
-
-
-
-
-
-
-
-
-
-
+// Global error handler 
+app.use((err, req, res, next) => {
+  res.status(err.statusCode || 500)
+     .send(`
+      <html>
+        <head><title>Error</title></head>
+        <body>
+          <h1>Error: ${err.statusCode || 500}</h1>
+          <h2>${err.message || "Internal Server Error"}</h2>
+          ${process.env.NODE_ENV === "development" ? `<pre>${err.stack}</pre>` : ""}
+        </body>
+      </html>
+    `);
+});
 
 export default app;
